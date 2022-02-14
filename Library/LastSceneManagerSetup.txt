@@ -1,9 +1,5 @@
 sceneSetups:
-<<<<<<< HEAD
 - path: Assets/Scenes/DriftGame.unity
-=======
-- path: Assets/Scenes/MapSelectionMenu.unity
->>>>>>> 6dd73b652a66d72eaface727b178a126e33f6433
   isLoaded: 1
   isActive: 1
   isSubScene: 0

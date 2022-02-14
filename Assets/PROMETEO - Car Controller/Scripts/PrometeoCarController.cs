@@ -18,20 +18,22 @@ public class PrometeoCarController : MonoBehaviour
 {
 
     //POINTS
-    public int points = 0;
-    
-    
+    public double points = 0;
+    private float time = 5.0f;
+    public int drift_cool_down = 5;
+    private double secondsNotDrifting = 0;
+
     //CAR SETUP
 
       [Space(20)]
       [Header("CAR SETUP")]
       [Space(10)]
       [Range(20, 250)]
-      public int maxSpeed = 90; //The maximum speed that the car can reach in km/h.
+      public int maxSpeed = 200; //The maximum speed that the car can reach in km/h.
       [Range(10, 120)]
       public int maxReverseSpeed = 45; //The maximum speed that the car can reach while going on reverse in km/h.
       [Range(1, 10)]
-      public int accelerationMultiplier = 2; // How fast the car can accelerate. 1 is a slow acceleration and 10 is the fastest.
+      public int accelerationMultiplier = 10; // How fast the car can accelerate. 1 is a slow acceleration and 10 is the fastest.
       [Space(10)]
       [Range(10, 45)]
       public int maxSteeringAngle = 27; // The maximum angle that the tires can reach while rotating the steering wheel.
@@ -102,7 +104,7 @@ public class PrometeoCarController : MonoBehaviour
       [Space(10)]
       public Text carSpeedText; // Used to store the UI object that is going to show the speed of the car.
       public Text pointsText;
-
+      public Text coolDownText;
     //SOUNDS
 
       [Space(20)]
@@ -196,8 +198,23 @@ public class PrometeoCarController : MonoBehaviour
     void Update()
     {
         if(isDrifting){
-          points++;
-          pointsText.text=points.ToString();
+          time = 6.0f;
+          points+=0.01*accelerationMultiplier;
+          pointsText.text=points.ToString("F0")+" points";
+          coolDownText.text="";
+        }else{
+          time -= Time.deltaTime;
+          secondsNotDrifting = time % 60;
+          if(points > 0 && time < 5f){
+            coolDownText.text=secondsNotDrifting.ToString("F0");
+          }
+          if (secondsNotDrifting <= 1) {
+              points = 0;
+              pointsText.text=points.ToString("F0")+" points";
+              time = 6.0f;              
+              coolDownText.text="";
+              // execute block of code here
+          }
         }
       //CAR DATA
 
