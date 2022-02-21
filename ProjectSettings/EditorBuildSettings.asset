@@ -6,9 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/RacingGame.unity
-    guid: 81761fe33e897964fb286fa52a4bb4fe
-  - enabled: 1
     path: Assets/Scenes/DriftGame.unity
     guid: d05c07244ed6a3740be3bdad186521e6
+  - enabled: 1
+    path: Assets/Scenes/CARFINAL.unity
+    guid: 892f66df724b82040b9e74a8d7fac002
   m_configObjects: {}
