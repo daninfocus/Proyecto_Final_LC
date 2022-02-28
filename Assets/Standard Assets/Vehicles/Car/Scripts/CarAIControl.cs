@@ -34,7 +34,8 @@ namespace UnityStandardAssets.Vehicles.Car
         [SerializeField] [Range(0, 1)] private float m_AccelWanderAmount = 0.1f;                  // how much the cars acceleration will wander
         [SerializeField] private float m_AccelWanderSpeed = 0.1f;                                 // how fast the cars acceleration wandering will fluctuate
         [SerializeField] private BrakeCondition m_BrakeCondition = BrakeCondition.TargetDistance; // what should the AI consider when accelerating/braking?
-        [SerializeField] private bool m_Driving;                                                  // whether the AI is currently actively driving or stopped.
+        [SerializeField] public bool m_Driving;                                                  // whether the AI is currently actively driving or stopped.
+        public bool disable=true;
         [SerializeField] private Transform m_Target;                                              // 'target' the target object to aim for.
         [SerializeField] private bool m_StopWhenTargetReached;                                    // should we stop driving when we reach the target?
         [SerializeField] private float m_ReachTargetThreshold = 2;                                // proximity to target to consider we 'reached' it, and stop driving.
@@ -59,13 +60,15 @@ namespace UnityStandardAssets.Vehicles.Car
         }
 
 
-        private void FixedUpdate()
+        private void Update()
         {
             if (m_Target == null || !m_Driving)
             {
                 // Car should not be moving,
                 // use handbrake to stop
-                m_CarController.Move(0, 0, -1f, 1f);
+                if(!disable){
+                    m_CarController.Move(0, 0, -1f, 1f);
+                }
             }
             else
             {
